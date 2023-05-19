@@ -1,0 +1,80 @@
+# Dependency directories
+/node_modules
+
+# Optional npm cache directory
+/.npm
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Built output
+/dist
+/build
+
+# IDE and editor files
+.vscode
+.idea
+*.sublime-*
+*.swp
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Testing frameworks
+/coverage
+
+# Continuous integration
+/.github/workflows
+
+# Dependency lock files
+package-lock.json
+
+# Cache and build directories
+/.cache
+/.husky
+.npm-debug.log*
+
+# Editor specific files
+*.iml
+
+# Jest coverage
+/coverage
+
+# Next.js build output
+/.next
+
+# Nuxt.js build output
+/.nuxt
+
+# Parcel build output
+/.cache
+/dist
+
+# Storybook build output
+/storybook-static
+
+# Vuepress build output
+/.vuepress/dist
+
+# Prisma client
+/prisma
+
+# Amplify
+.amplify
+
+# Cypress
+/cypress/videos
+/cypress/screenshots
+
+# Danger.js
+/.danger
+
+# Output of npm's `pack` command
+*.tgz
+
+# Puppeteer
+/.local-chromium
