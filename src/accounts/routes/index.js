@@ -1,12 +1,14 @@
 import express from 'express';
 import AccountsController from '../controllers';
+import ValidationController from '../controllers/ValidationController';
 
 const createRouter = (dependencies) => {
     const router = express.Router();
     // load controller with dependencies
     const accountsController = AccountsController(dependencies);
+    const validationController = ValidationController(dependencies);
     router.route('/')
-        .post(accountsController.createAccount);
+        .post(validationController.validateAccount, accountsController.createAccount);
 
     router.route('/')
         .get(accountsController.listAccounts);
@@ -17,6 +19,11 @@ const createRouter = (dependencies) => {
     router.route('/:id')
         .put(accountsController.updateAccount);
 
+
+
     return router;
 };
+
+
+
 export default createRouter;

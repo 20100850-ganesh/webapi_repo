@@ -1,5 +1,6 @@
 import accountService from "../services";
 
+
 export default (dependencies) => {
 
     const createAccount = async (request, response, next) => {
