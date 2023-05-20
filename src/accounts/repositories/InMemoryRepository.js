@@ -16,9 +16,16 @@ export default class extends AccountRepository {
     }
     merge(accountEntity) {
         let row = this.data[accountEntity.id];
+        if (!row) {
+            // Create a new row if it doesn't exist
+            row = {};
+            this.data[accountEntity.id] = row;
+        }
         Object.assign(row, accountEntity);
         return Promise.resolve(row);
     }
+
+
     remove(userId) {
         delete this.data[userId];
         return Promise.resolve();
@@ -27,7 +34,7 @@ export default class extends AccountRepository {
         return Promise.resolve(this.data[userId]);
     }
     getByEmail(userEmail) {
-        const users = this._dataAsArray();
+        const users = this.dataAsArray();
         return Promise.resolve(users.find(user => user.email === userEmail));
     }
     find() {

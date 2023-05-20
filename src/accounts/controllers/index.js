@@ -24,11 +24,35 @@ export default (dependencies) => {
         //output
         response.status(200).json(accounts);
     };
+    const updateAccount = async (request, response, next) => {
+        // Input
+        const id = request.params.id;
+        const { firstName, lastName, email, password } = request.body;
+
+        try {
+            // Treatment
+            const accounts = await accountService.updateAccount(
+                id,
+                firstName,
+                lastName,
+                email,
+                password,
+                dependencies
+            );
+
+            // Output
+            response.status(200).json(accounts);
+        } catch (error) {
+            next(error);
+        }
+    };
+
 
 
     return {
         createAccount,
         getAccount,
-        listAccounts
+        listAccounts,
+        updateAccount
     };
 };
