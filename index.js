@@ -5,6 +5,7 @@ import moviesRouter from './src/movies';
 import genresRouter from './src/genres';
 import createAccountsRouter from './src/accounts/routes';
 import buildDependencies from './src/config/dependencies';
+import createMoviesRouter from './src/movies/routes';
 
 require('dotenv').config();
 
@@ -12,11 +13,10 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use('/api/movies', moviesRouter);
+app.use('/api/movies', createMoviesRouter(dependencies));
 app.use('/api/genres', genresRouter);
 
 const dependencies = buildDependencies();
-//... Existing code
 
 app.use('/api/accounts', createAccountsRouter(dependencies));
 
