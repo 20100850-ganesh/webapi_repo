@@ -1,12 +1,14 @@
 /* eslint-disable no-undef */
 import dotenv from 'dotenv';
 import express from 'express';
-import genresRouter from './src/genres';
 import createAccountsRouter from './src/accounts/routes';
 import buildDependencies from './src/config/dependencies';
 import createMoviesRouter from './src/movies/routes';
 import db from './src/config/db';
 import errorHandler from './src/utils/ErrorHandler';
+import genresRouter from '/workspaces/webapi_repo/src/genres/routes/index.js';
+
+
 
 require('dotenv').config();
 db.init();

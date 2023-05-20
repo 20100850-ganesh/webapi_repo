@@ -33,9 +33,17 @@ export default {
     },
     addFavourite: async (accountId, movieId, { accountsRepository }) => {
         const account = await accountsRepository.get(accountId);
-        account.favourites.push(movieId);
-        return await accountsRepository.merge(account);
 
+        // Check if the movie already exists in the favorites array
+        const existingIndex = account.favourites.findIndex((fav) => fav === movieId);
+        if (existingIndex !== -1) {
+            throw new Error('Movie already exists in favorites.');
+        }
+
+        // Add the movie to the favorites array
+        account.favourites.push(movieId);
+
+        return await accountsRepository.merge(account);
     },
 
 

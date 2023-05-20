@@ -1,10 +1,13 @@
-// index.js
 import express from 'express';
-import { genres } from './genresData';
+import uniqid from 'uniqid';
+import { genres } from '/workspaces/webapi_repo/src/genres/genresData.js';
 
 const router = express.Router();
 
 // ... Existing GET routes ...
+router.get('/', (req, res) => {
+    res.status(200).json(genres);
+});
 
 // Add a genre
 router.post('/', (req, res) => {
