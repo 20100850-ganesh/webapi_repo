@@ -1,10 +1,14 @@
 import AccountsRepositoryInMemory from '../accounts/repositories/InMemoryRepository';
 import AccountsRepositoryMongo from '../accounts/repositories/MongoAccountRepository';
 import AccountSchema from '../accounts/validators';
+import Authenticator from '/workspaces/webapi_repo/src/accounts/security/simple/index.js';
+import AccountValidators from '/workspaces/webapi_repo/src/accounts/validators/index.js';
 
 
 const buildDependencies = () => {
     const dependencies = {
+        validators: AccountValidators,
+        authenticator: new Authenticator()
     };
 
     console.log('DATABASE_DIALECT:', process.env.DATABASE_DIALECT);
