@@ -1,5 +1,4 @@
 import express from 'express';
-import uniqid from 'uniqid';
 import { genres } from '/workspaces/webapi_repo/src/genres/genresData.js';
 
 const router = express.Router();

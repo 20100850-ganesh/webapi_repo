@@ -1,8 +1,10 @@
 import AccountsRepositoryInMemory from '../accounts/repositories/InMemoryRepository';
 import AccountsRepositoryMongo from '../accounts/repositories/MongoAccountRepository';
 import AccountSchema from '../accounts/validators';
-import Authenticator from '/workspaces/webapi_repo/src/accounts/security/simple/index.js';
+//import Authenticator from '/workspaces/webapi_repo/src/accounts/security/simple/index.js';
 import AccountValidators from '/workspaces/webapi_repo/src/accounts/validators/index.js';
+import Authenticator from '/workspaces/webapi_repo/src/accounts/security/BCryptAuthenticator.js';
+import TokenManager from '/workspaces/webapi_repo/src/accounts/security/TokenManager.js';
 
 
 const buildDependencies = () => {
@@ -12,6 +14,8 @@ const buildDependencies = () => {
     };
 
     console.log('DATABASE_DIALECT:', process.env.DATABASE_DIALECT);
+    dependencies.tokenManager = new TokenManager(process.env.JWT_SECRET_KEY);
+
 
     if (process.env.DATABASE_DIALECT === "in-memory") {
         dependencies.accountsRepository = new AccountsRepositoryInMemory();

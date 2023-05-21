@@ -1,7 +1,9 @@
 import Account from '../entities/Account';
+import Authenticator from '/workspaces/webapi_repo/src/accounts/security/BCryptAuthenticator.js';
 
 export default {
-    registerAccount: async (firstName, lastName, email, password, { accountsRepository }) => {
+    registerAccount: async (firstName, lastName, email, password, { accountsRepository, authenticator }) => {
+        password = await authenticator.encrypt(password);
         const account = new Account(undefined, firstName, lastName, email, password);
         return accountsRepository.persist(account);
     },
@@ -14,19 +16,22 @@ export default {
     findByEmail: (email, { accountsRepository }) => {
         return accountsRepository.getByEmail(email);
     },
-    updateAccount: (id, firstName, lastName, email, password, { accountsRepository }) => {
-        const account = new Account(id, firstName, lastName, email, password);
+    updateAccount: async (id, firstName, lastName, email, password, { accountsRepository, authenticator }) => {
+        const encryptedPassword = await authenticator.encrypt(password);
+        const account = new Account(id, firstName, lastName, email, encryptedPassword);
         return accountsRepository.merge(account);
+
     },
-    authenticate: async (email, password, { accountsRepository, authenticator }) => {
+    authenticate: async (email, password, { accountsRepository, authenticator, tokenManager }) => {
         const account = await accountsRepository.getByEmail(email);
         const result = await authenticator.compare(password, account.password);
         if (!result) {
             throw new Error('Bad credentials');
         }
-        const token = JSON.stringify({ email: account.email });//JUST Temporary!!! TODO: make it better
+        const token = tokenManager.generate({ email: account.email });
         return token;
     },
+
     getFavourites: async (accountId, { accountsRepository }) => {
         const account = await accountsRepository.get(accountId);
         return account.favourites;
